@@ -16,5 +16,7 @@ public class Task2 {
     public static void main(String[] args) {
         Object[] array = {"needle", 5, 45, null};
         System.out.println(findNeddle(array));
+
+
     }
 }
