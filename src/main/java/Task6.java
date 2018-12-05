@@ -1,52 +1,88 @@
+import java.io.*;
+
 public class Task6 {
 
-    public static String encrypt(final String text, final int n) {
+    public static String encrypt(final String text, final int n) throws IOException {
+        String changedString = "";
+
+        //null  and empty String
+        if (text ==null || "".equals(text.trim()) ||n <= 0) {
+            changedString= text;
+        } else {
+            int counter = n;
+            while (counter != 0) {
+                changedString=split(text);
+                counter--;
+            }
+        }
+        return changedString;
+    }
+
+    public static String split(final String text) throws IOException {
+
+     StringBuffer sb = new StringBuffer();
+        String result;
+        int middlePosition = text.length()/2;
+        int positionToAdd=1;
+
+        for (int i = 1; i <middlePosition; i = i++) {
+            sb.append(text.charAt(positionToAdd));
+            positionToAdd=+2;
+
+        }
+        positionToAdd=0;
+        for (int i = 0; i < middlePosition; i = i++) {
+            sb.append(text.charAt(positionToAdd));
+            positionToAdd=+2;
+        }
+        if(text.length()%2==1){
+            sb.append(text.charAt(text.length()-1));
+        }
+        result = sb.toString();
+        return result;
+    }
+
+    private static String buildString(final String decryptedText) throws IOException {
+        InputStream is = new ByteArrayInputStream(decryptedText.getBytes("UTF-8"));
+
+        char[] buf = new char[2048];
+        Reader r = new InputStreamReader(is, "UTF-8");
+
+        while (true) {
+            int n = r.read(buf);
+            if (n < 0)
+                break;
+        }
+        StringBuffer sb = new StringBuffer();
+
+        int middlePosition = decryptedText.length()/2;
+
+        for (int i = 0; i < middlePosition; i = i++) {
+            sb.append(decryptedText.charAt(i+1));
+            sb.append(decryptedText.charAt(i));
+        }
+        if (decryptedText.length() % 2 == 1) {
+            sb.append(decryptedText.charAt(decryptedText.length() - 1));
+        }
+        return sb.toString();
+
+    }
+
+
+    public static String decrypt(final String encryptedText, final int n) throws IOException {
         String changedString = "";
         //null  and empty String
-        if (text.equals(null)) {
-            return null;
-        } else if (text.equals("")) {
-            return "Empty String";
-
-            //no iteration
+        if (encryptedText ==null || "".equals(encryptedText.trim()) ||n <= 0) {
+            changedString= encryptedText;
         } else {
-            if (n <= 0) {
-                return text;
-            } else {
-                int loopCounter = n;
-                String textTochange = text;
-
-                while (loopCounter != 0) {
-                    String leftChars="";
-                    changedString="";
-                    char[] splitText = textTochange.toCharArray();
-                    for (int i = 1; i < splitText.length; i = i + 2) {
-                        changedString += (splitText[i]);
-                    }
-                    for (int i = 0; i < splitText.length; i = i + 2) {
-                        leftChars+= (splitText[i]);
-                    }
-                    changedString = changedString + leftChars;
-                    textTochange = changedString;
-                    loopCounter--;
-                }
+            int counter = n;
+            while (counter != 0) {
+                changedString=buildString(encryptedText);
+                counter--;
             }
-        }return changedString;
-    }
 
+        }
 
-    public static String decrypt(final String encryptedText, final int n) {
-        // Your code here
-        return null;
-    }
-
-
-    public static void main(String[] args) {
-
-        String toEncode = "You've got another thing coming";
-        String text = "hsi  etTi sats!";
-        System.out.println(encrypt(toEncode,0));
-        System.out.println(encrypt(toEncode,2));
-        System.out.println(encrypt(text,1));
+        return changedString;
     }
 }
