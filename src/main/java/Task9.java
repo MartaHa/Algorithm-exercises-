@@ -1,42 +1,46 @@
 import java.util.*;
 
 /**
- * in progress
- * */
-
+ Given a list lst and a number N, create a new list that contains each number of lst at most N times
+ without reordering. For example if N = 2, and the input is [1,2,3,1,2,1,2,3], you take [1,2,3,1,2],
+ drop the next [1,2] since this would lead to 1 and 2 being in the result 3 times, and then take 3,
+ which leads to [1,2,3,1,2,3].
+ */
 
 
 public class Task9 {
 
     public static int[] deleteNth(int[] elements, int maxOccurrences) {
 
-        List resultList = new ArrayList();
+        List result = new ArrayList();
 
-        for (int j = 0; j < elements.length; j++) {
-            int counter = 0;
-            int toCheck = elements[j];
+        Map occurenciesMap = new HashMap();
 
-            for (int i = 0; i < elements.length; i++) {
+        for (int i = 0; i < elements.length; i++) {
+            int currentDigit = elements[i];
 
-                if (elements[i] == toCheck) {
-                    counter++;
+            if (occurenciesMap.get(currentDigit) == null) {
+                occurenciesMap.put(currentDigit, 1);
+                result.add(currentDigit);
+
+            } else {
+                int value = (int) occurenciesMap.get(elements[i]);
+                if (value < maxOccurrences) {
+                    result.add(currentDigit);
+                    occurenciesMap.put(currentDigit, value + 1);
                 }
 
             }
-            if (counter <= maxOccurrences) {
-                resultList.add(elements[j]);
-            }
         }
 
-
-        int[] resultArray = new int[resultList.size()];
-        for (int i = 0; i < resultList.size(); i++) {
-            resultArray[i] = (int) resultList.get(i);
+        int[] resultArray = new int[result.size()];
+        for (
+                int i = 0; i < result.size(); i++) {
+            resultArray[i] = (int) result.get(i);
         }
 
         return resultArray;
     }
-
 
 
     public static void main(String[] args) {
