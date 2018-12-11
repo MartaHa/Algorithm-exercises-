@@ -12,7 +12,8 @@
 public class Task10 {
 
     public static int mxdiflg(String[] a1, String[] a2) {
-        if ((a1 == null && a1.length ==0) || (a2 == null && a2.length ==0)) {
+        if ((a1 == null && a1.length ==0) || (a2 == null && a2.length ==0) || ((a1 == null && a1.length ==0) && (a2 == null && a2.length ==0)))  {
+
             return -1;
         }
         int result = 0;
