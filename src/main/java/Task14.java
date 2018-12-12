@@ -19,17 +19,15 @@ public class Task14 {
         String numberToString = Integer.toString(num);
         String[] stringParts = numberToString.split("");
 
-        String tens = "0";
-
-
         for (int i = 0; i < stringParts.length - 1; i++) {
-            for (int j = stringParts.length; j > 0; j++) {
+            String tens = "";
+            for (int j =i; j<stringParts.length-1; j++) {
                 tens += 0;
             }
             expandedFormString += (stringParts[i] + tens + " + ");
             tens = tens + "0";
         }
-        expandedFormString += stringParts[stringParts.length];
+        expandedFormString += stringParts[stringParts.length-1];
 
         //your code here
         return expandedFormString;
