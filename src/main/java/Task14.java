@@ -1,4 +1,4 @@
-
+import java.util.Arrays;
 
 /**
  * Write Number in Expanded Form
@@ -15,21 +15,29 @@ public class Task14 {
 
     public static String expandedForm(int num) {
         String expandedFormString = "";
-
         String numberToString = Integer.toString(num);
         String[] stringParts = numberToString.split("");
 
-        for (int i = 0; i < stringParts.length - 1; i++) {
-            String tens = "";
-            for (int j =i; j<stringParts.length-1; j++) {
-                tens += 0;
-            }
-            expandedFormString += (stringParts[i] + tens + " + ");
-            tens = tens + "0";
-        }
-        expandedFormString += stringParts[stringParts.length-1];
 
-        //your code here
+        for (int i = 0; i < stringParts.length - 1; i++) {
+            if (stringParts[i].equals("0")) {
+                continue;
+            } else {
+                String tens = "";
+                for (int j = i; j < stringParts.length - 1; j++) {
+                    tens += 0;
+                }
+                expandedFormString += (stringParts[i] + tens + " + ");
+                tens = tens + "0";
+
+            }
+
+        }
+        String lastNumber = stringParts[stringParts.length - 1];
+        if (!lastNumber.equals(0));
+        {
+            expandedFormString += stringParts[stringParts.length - 1];
+        }
         return expandedFormString;
     }
 }
